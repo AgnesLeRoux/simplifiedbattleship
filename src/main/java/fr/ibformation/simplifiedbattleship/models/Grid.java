@@ -11,14 +11,15 @@ public class Grid {
 	List<Cell> cells = new ArrayList<Cell>();
 	List<Boat> boats = new ArrayList<Boat> ();
 	
-	public Grid(PlayerType playerType, int nbRows, int nbCols, List<Cell> cells, List<Boat> boats) 
+	public Grid(PlayerType playerType, int nbRows, int nbCols) 
 	{
 		super();
 		this.playerType = playerType;
 		this.nbRows = nbRows;
 		this.nbCols = nbCols;
-		this.cells = cells;
-		this.boats = boats;
+		for(int i=0; i<nbRows; i++)
+			for(int j=0;j<nbCols; j++)
+			this.cells.add(new Cell(i,j));
 	}
 	
 	public PlayerType getPlayerType() {
@@ -59,8 +60,5 @@ public class Grid {
 	private int coord2Id(int coord1, int coord2) {
 		return nbRows * coord1 + coord2;
 	}
-	
-	
-	
 	
 }

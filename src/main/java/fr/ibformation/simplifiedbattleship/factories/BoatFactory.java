@@ -6,11 +6,27 @@ import fr.ibformation.simplifiedbattleship.models.Boat;
 import fr.ibformation.simplifiedbattleship.models.Grid;
 import fr.ibformation.simplifiedbattleship.models.Orientation;
 
-public class BoatFactory {
+public final class BoatFactory {
 	
-private static Random rnd = new Random(73);
+	private static BoatFactory instance = null;
 	
-	public static Boat computeNewBoat(int size, Grid grid )
+	private  Random rnd = new Random(73);
+
+	private BoatFactory()
+	{
+		super();
+	}
+	
+	public final static BoatFactory getInstance()
+	{
+		if(instance == null)
+		{
+			instance = new BoatFactory();
+		}
+		return instance;
+	}
+	
+	public Boat computeNewBoat(int size, Grid grid )
 	{
 		Boat boat = new Boat();
 		boat.setGrid(grid);
