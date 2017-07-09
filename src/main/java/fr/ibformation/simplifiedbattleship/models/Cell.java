@@ -28,6 +28,18 @@ public class Cell {
 	public boolean isRevealed() {
 		return revealed;
 	}
-	
-	
+
+	public void setContainsBoat(boolean containsBoat) {
+		this.containsBoat = containsBoat;
+	}
+
+	public void setRevealed(boolean revealed) {
+		this.revealed = revealed;
+	}
+
+	@Override
+	public String toString() {
+		return "Cell [coord1=" + coord1 + ", coord2=" + coord2 + ", containsBoat=" + containsBoat + ", revealed="
+				+ revealed + "]";
+	}
 }

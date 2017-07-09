@@ -100,8 +100,10 @@ public class Boat {
 		this.grid = grid;
 	}
 
-
-	
-	
+	@Override
+	public String toString() {
+		return "Boat [orientation=" + orientation + ", size=" + size + ", coord1=" + coord1 + ", coord2=" + coord2
+				+ "]";
+	}
 	
 }

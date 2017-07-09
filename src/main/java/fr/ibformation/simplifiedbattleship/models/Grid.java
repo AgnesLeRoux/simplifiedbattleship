@@ -10,7 +10,7 @@ public class Grid {
 	private int nbCols;
 	List<Cell> cells = new ArrayList<Cell>();
 	List<Boat> boats = new ArrayList<Boat> ();
-	
+
 	public Grid(PlayerType playerType, int nbRows, int nbCols) 
 	{
 		super();
@@ -19,9 +19,37 @@ public class Grid {
 		this.nbCols = nbCols;
 		for(int i=0; i<nbRows; i++)
 			for(int j=0;j<nbCols; j++)
-			this.cells.add(new Cell(i,j));
+				this.cells.add(new Cell(i,j));
 	}
-	
+
+	public void addBoat(Boat boat) {
+		boats.add(boat);
+		boat.setGrid(this);
+		switch(boat.getOrientation())
+		{
+			case vertical:
+			{
+				int j=boat.getCoord2();
+				for(int i=boat.getCoord1(); i<boat.getCoord1()+boat.getSize(); i++)
+				{
+					Cell c = cells.get(coord2Id(i,j));
+					c.setContainsBoat(true);
+				}
+				break;
+			}
+			case horizontal:
+			{
+				int i=boat.getCoord1();
+				for(int j=boat.getCoord2(); j<boat.getCoord2()+boat.getSize(); j++)
+				{
+					Cell c = cells.get(coord2Id(i,j));
+					c.setContainsBoat(true);
+				}
+			}
+		}
+	}
+
+
 	public PlayerType getPlayerType() {
 		return playerType;
 	}
@@ -58,7 +86,48 @@ public class Grid {
 	}
 
 	private int coord2Id(int coord1, int coord2) {
-		return nbRows * coord1 + coord2;
+		return nbCols * coord1 + coord2;
 	}
 	
+	public String toString1()
+	{
+		String str = "";
+		for(int i=0;i<this.nbRows;i++)
+		{
+			for(int j=0;j<this.nbCols;j++)
+			{
+				
+				Cell c = this.getCellByCoord(i, j);
+				if (c.isRevealed() && c.isContainsBoat()) 
+				{
+					str += "X";
+				}
+				if(c.isRevealed() && !c.isContainsBoat())
+				{
+					str += "0";
+				}
+				if(!c.isRevealed() && c.isContainsBoat())
+				{
+					str += "B";
+				}
+				if(!c.isRevealed() && !c.isContainsBoat())
+				{
+					str += ".";
+				}
+				
+				str+="";
+			}
+			str +="\n";
+		}
+		return str;
+	}
+
+	@Override
+	public String toString() {
+		return "Grid [playerType=" + playerType + ", nbRows=" + nbRows + ", nbCols=" + nbCols + ", cells=" + cells
+				+ ", boats=" + boats + "]\n" + toString1();
+	}
+	
+
+
 }
